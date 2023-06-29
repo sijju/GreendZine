@@ -24,7 +24,7 @@ function App() {
         const filteredData = apiData.filter((item) => {
             return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase())
         })
-        console.log(filteredData)
+        
         setFilteredResults(filteredData)
     }
     else{
@@ -36,30 +36,58 @@ function App() {
     <div className='container'>
       <Input placeholder='search...' icon='search' onChange={e=>searchItems(e.target.value)}/>
       <Card.Group itemsPerRow={3} stackable style={{marginTop:20}}>
-        {apiData.map((item)=>(
-         <>
-           
-          <Card key={item.id} className='extra' >
-            
-              
+        {searchInput.length > 1 ? 
+
+          filteredResults.map((item) => (
             <div>
-              
-              <span>{item.id}</span>
-            </div>
             
-              
-              
-              <img src={item.avatar} style={{height:'100%',width:'100%',borderRadius:'50px',objectFit:'cover',padding:10}} />
-              
-              <Card.Content>
-                <Card.Header textAlign='center'>{item.first_name}</Card.Header>
-              </Card.Content>
-              
-          </Card>
+           <Card key={item.id} className='extra'   >
+             
+               
+             <div>
+               
+               <span>{item.id}</span>
+             </div>
+               <img src={item.avatar} style={{height:'100%',width:'100%',borderRadius:'50px',objectFit:'cover',padding:10}} />
+             
+               
+               
+               
+               <Card.Content>
+                 <Card.Header textAlign='center'>{item.first_name}</Card.Header>
+               </Card.Content>
+               
+           </Card>
+           
+          </div>
+           
+          ))
+        
+        : apiData.map((item)=>(
           
-         </>
+            
+           <Card key={item.id}  >
+             
+               
+             <div>
+               
+               <span>{item.id}</span>
+             </div>
+             
+               
+               
+               <img src={item.avatar} style={{height:'100%',width:'100%',borderRadius:'50px',objectFit:'cover',padding:10}} />
+               
+               <Card.Content>
+                 <Card.Header textAlign='center'>{item.first_name}</Card.Header>
+               </Card.Content>
+               
+           </Card>
+           
           
-        ))}
+           
+         ))
+        }
       </Card.Group>
        
     </div>
